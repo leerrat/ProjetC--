@@ -1,0 +1,26 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "Build C++ Project",
+        "type": "shell",
+        "command": "g++",
+        "args": [
+          "-std=c++17",       // Choisissez votre standard
+          "-Wall",            // Active les warnings
+          "-o", "Jeu", // Nom de l'exécutable
+          "main.cpp",         // Liste des fichiers sourcemultiple definition of `personnage::personnage(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, int, int, int, int, int, int, int, bool)'
+          "class_guerrier.cpp",
+          "class_archer.cpp",
+          "class_mage.cpp",
+          "class_ennemi.cpp"
+        ],
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        },
+        "problemMatcher": ["$gcc"],
+        "detail": "Task for compiling C++ project"
+      }
+    ]
+  }
