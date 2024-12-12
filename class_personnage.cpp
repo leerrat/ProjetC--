@@ -81,4 +81,6 @@ void personnage::lvlup(){
     }
 }
 
-void personnage::capacite_spec(personnage &ennemi){}
+bool personnage::capacite_spec(personnage &ennemi){
+    return false;
+}

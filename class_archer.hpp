@@ -10,7 +10,7 @@ class archer : public personnage
 {
     public:
         archer(std::string nom, int pv, int mana, int force, int dex, int esprit, int exp, int lvl, bool en_defense);
-        void capacite_spec(personnage &ennemi);
+        bool capacite_spec(personnage &ennemi);
         void attaque(personnage &ennemi);
 };
  

@@ -15,15 +15,17 @@ archer::archer(std::string nom, int pv, int mana, int force, int dex, int esprit
     archer::en_defense=false;
 }
 
-void archer::capacite_spec(personnage &ennemi) {
-    std::cout << p_nom <<" lance une une fleche en pleine tete et inflige de nombreux degat !\n"<<std::endl;
+bool archer::capacite_spec(personnage &ennemi) {
     if (p_mana>=30)
     {
+        std::cout << p_nom <<" lance une une fleche en pleine tete et inflige de nombreux degat !\n"<<std::endl;
         ennemi.recevoir_attaque(30,p_dex);
         p_mana-=30;
+        return true;
     }else
     {
-        cout<<"vous n'avez pas assez de mana"<<endl;
+        cout<<"Vous n'avez pas assez de mana. Choissisez une autre option\n"<<endl;
+        return false;
     }
 }
 

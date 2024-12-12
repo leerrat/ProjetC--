@@ -2,13 +2,14 @@
 #include "class_ennemi.hpp"
 #include "class_personnage.hpp"
 
-void ennemi::capacite_spec(personnage &ennemi){
+bool ennemi::capacite_spec(personnage &ennemi){
     std::cout << p_nom <<" vous mord de toute ses forces \n"<<std::endl;
     ennemi.recevoir_attaque(20,p_force);
+    return true;
 }
 
 void ennemi::drop_exp(personnage& joueur){
-    joueur.p_exp+=100;
+    joueur.p_exp+=ennemi::p_exp;
 }
 
 ennemi::ennemi(std::string nom, int pv, int mana, int force, int dex, int esprit, int exp, int lvl, bool en_defense)

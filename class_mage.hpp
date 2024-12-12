@@ -9,7 +9,7 @@ class mage : public personnage
 {
     public:
         mage(std::string nom, int pv, int mana, int force, int dex, int esprit, int exp, int lvl, bool en_defense);
-        void capacite_spec(personnage &ennemi);
+        bool capacite_spec(personnage &ennemi);
         void attaque(personnage &ennemi);
 };
 #endif

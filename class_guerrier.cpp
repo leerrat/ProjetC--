@@ -16,15 +16,17 @@ guerrier::guerrier(std::string nom, int pv, int mana, int force, int dex, int es
     guerrier::en_defense=false;
 }
 
-void guerrier::capacite_spec(personnage &ennemi){
-    std::cout << p_nom <<" effectue une attaque puissante avec son epee et inflige de nombreux degat ! \n"<<std::endl;
+bool guerrier::capacite_spec(personnage &ennemi){
     if (p_mana>=50)
     {
+        std::cout << p_nom <<" effectue une attaque puissante avec son epee et inflige de nombreux degat ! \n"<<std::endl;
         ennemi.recevoir_attaque(30,1);
         p_mana-=50;
+        return true;
     }else
     {
-        cout<<"vous n'avez pas assez de mana"<<endl;
+        cout<<"Vous n'avez pas assez de mana. Choissisez une autre option\n"<<endl;
+        return false;
     }
 }
 

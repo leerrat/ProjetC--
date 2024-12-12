@@ -22,14 +22,16 @@ void mage::attaque(personnage &ennemi) {
     p_mana += 50;
 }
 
-void mage::capacite_spec(personnage &ennemi){
-    std::cout << p_nom <<" fait tombez la foudre et inflige de nombreux degat !\n"<<std::endl;
+bool mage::capacite_spec(personnage &ennemi){
     if (p_mana>=70)
     {
+        std::cout << p_nom <<" fait tombez la foudre et inflige de nombreux degat !\n"<<std::endl;
         p_mana-=70;
         ennemi.recevoir_attaque(50,p_int);
+        return true;
     }else
     {
-        cout<<"vous n'avez pas assez de mana"<<endl;
+        cout<<"Vous n'avez pas assez de mana. Choissisez une autre option\n"<<endl;
+        return false;
     }
 }

@@ -35,7 +35,7 @@ personnage* LancerJeu(){
             } else if (choix == "mage"|| choix =="Mage") {
                 cout << "Vous avez choisi le Mage\n";
                 flag = 0;
-                P1=new mage (nomPerso, 100, 100, 1, 1, 5, 1, 1,false);
+                P1=new mage (nomPerso, 100, 100, 1, 1, 1, 1, 1,false);
             } else {
                 cout << "Veuillez choisir une des classes existantes.\n";
                 flag = 1;
@@ -57,10 +57,10 @@ int lancerCombat(personnage &J1, ennemi &J2){
         bool actionValide = false;
         do {
             std::cout << "Choisissez ce que vous voulez faire :\n"
-                      << "1. Attaquer l'ennemi\n"
-                      << "2. Vous proteger d'une attaque ennemie\n"
-                      << "3. Utiliser la capacite speciale de votre classe\n"
-                      << "4. Utiliser une potion de soin" << std::endl;
+                      << "1. Attaquer l'ennemi (Vous rend du mana)\n"
+                      << "2. Vous proteger d'une attaque ennemie (Reduit les degats subit par 2)\n"
+                      << "3. Utiliser la capacite speciale de votre classe (Utilise votre mana pour une attaque puissante)\n"
+                      << "4. Utiliser une potion de soin (Vous rend 20 point de vie)" << std::endl;
             std::cin >> choixAtt;
 
             switch (choixAtt) {
@@ -73,21 +73,21 @@ int lancerCombat(personnage &J1, ennemi &J2){
                 actionValide = true;
                 break;
             case 3:
-                J1.capacite_spec(J2);
-                actionValide = true;
+                actionValide = J1.capacite_spec(J2);
                 break;
             case 4:
                 std::cout << "Vous avez choisi d'utiliser une potion.\n";
                 std::cout << "Vos PV avant soin : " << J1.p_pv << std::endl;
                 potionSoin.utiliser_potion(J1);           
                 actionValide = true;
-                std::cout << "Vos PV après soin : " << J1.p_pv << std::endl;
+                std::cout << "Vos PV apres soin : " << J1.p_pv << std::endl;
                 break;
             default:
                 std::cout << "Choix invalide, veuillez reessayer.\n";
                 break;
             }
         } while (!actionValide);
+
         if (J2.p_pv <= 0) {
             std::cout << J2.p_nom << " a ete vaincu ! Felicitations a toi " << J1.p_nom << " !\n";
             win=1;
@@ -113,7 +113,7 @@ int lancerCombat(personnage &J1, ennemi &J2){
             break;
         }
         if (J1.p_pv <= 0) {
-            std::cout << "Vous avez perdu !!" << " !\n";
+            std::cout << "Vous etes mort...." << " !\n";
             break;
         }
         tour++;  // Incrémenter le tour après chaque tour
@@ -126,30 +126,114 @@ int main()
     do {
         // Création du personnage principal
         personnage* perso = LancerJeu();
-        ennemi mechant1("Grogator", 50, 100, 1, 1, 1, 10, 1, false);
+        ennemi mechant1("Grogator", 50, 100, 1, 1, 1, 50, 1, false);
+        ennemi mechant12("Maman Grogator", 70, 100, 1, 1, 1, 50, 1, false);
+        ennemi mechant22("Arbre Malefique", 100, 100, 1, 1, 1, 100, 1, false);
+        ennemi mechant2("Ratus", 100, 100, 1, 1, 1, 100, 1, false);
+        ennemi mechant3("Sihamus le boss de la foret", 150, 100, 2, 1, 1, 100, 1, false);
+        
 
         // Référence vers le personnage pour lancer le combat
         personnage& ref = *perso;
         cout << "\nVous tombez nez a nez face un horrible monstre dans la foret !.\n";
         cout << "Preparez vous a combattre !!!.\n";
         // Lancer le combat
-        int resultat = lancerCombat(ref, mechant1);
-        // Gérer le résultat du combat
-        if (resultat == 1) {
-            std::cout << "Vous recevez de l'experience qui vous permet de montez de niveau et devenir plus fort !\n";
-            mechant1.drop_exp(ref);
-            ref.lvlup();
-            ref.p_mana=100;
-        } else {
+        if (lancerCombat(ref, mechant1) == 0) {
             std::cout << "Vous avez perdu le combat...\n";
+            std::cout << "Souhaitez-vous relancer une partie ? (o/n) : ";
+            std::cin >> rejouer;
+            if (rejouer != 'o' && rejouer != 'O') {
+                std::cout << "Merci d'avoir joue ! A bientot.\n";
+                return 0; // Sort du programme
+            }
+            continue;
         }
+        std::cout << "Vous recevez de l'experience qui vous permet de monter de niveau et devenir plus fort !\n";
+        mechant1.drop_exp(ref);
+        if (ref.p_exp >= 100) {
+            ref.lvlup();
+        }
+        ref.p_mana = 100; // Réinitialisation du mana
+        cout << "\nOh non la maman du monstre que vous venez de combattre est arrivee pour vengez son petit !.\n";
+        cout << "Preparez vous a combattre !!!.\n";
+        if (lancerCombat(ref, mechant12) == 0) {
+            std::cout << "Vous avez perdu le combat...\n";
+            std::cout << "Souhaitez-vous relancer une partie ? (o/n) : ";
+            std::cin >> rejouer;
+            if (rejouer != 'o' && rejouer != 'O') {
+                std::cout << "Merci d'avoir joue ! A bientot.\n";
+                return 0; // Sort du programme
+            }
+            continue;
+        }
+        std::cout << "Vous recevez de l'experience qui vous permet de monter de niveau et devenir plus fort !\n";
+        mechant1.drop_exp(ref);
+        if (ref.p_exp >= 100) {
+            ref.lvlup();
+        }
+        ref.p_mana = 100;
 
-        // Demander si le joueur souhaite rejouer
+        cout << "\nUn arbre malefique vous attrape et veut vous mangez !.\n";
+        cout << "Preparez vous a combattre !!!.\n";
+        if (lancerCombat(ref, mechant22) == 0) {
+            std::cout << "Vous avez perdu le combat...\n";
+            std::cout << "Souhaitez-vous relancer une partie ? (o/n) : ";
+            std::cin >> rejouer;
+            if (rejouer != 'o' && rejouer != 'O') {
+                std::cout << "Merci d'avoir joue ! A bientot.\n";
+                return 0; // Sort du programme
+            }
+            continue;
+        }
+        std::cout << "Vous recevez de l'experience qui vous permet de monter de niveau et devenir plus fort !\n";
+        mechant1.drop_exp(ref);
+        if (ref.p_exp >= 100) {
+            ref.lvlup();
+        }
+        ref.p_mana = 100;
+
+        cout << "\nVous approchez de la sortie de la foret pour tomber contre un rat geant qui vous bloque la route!.\n";
+        cout << "Preparez vous a combattre !!!.\n";
+        if (lancerCombat(ref, mechant2) == 0) {
+            std::cout << "Vous avez perdu le combat...\n";
+            std::cout << "Souhaitez-vous relancer une partie ? (o/n) : ";
+            std::cin >> rejouer;
+            if (rejouer != 'o' && rejouer != 'O') {
+                std::cout << "Merci d'avoir joue ! A bientot.\n";
+                return 0; // Sort du programme
+            }
+            continue;
+        }
+        std::cout << "Vous recevez de l'experience qui vous permet de monter de niveau et devenir plus fort !\n";
+        mechant2.drop_exp(ref);
+        if (ref.p_exp >= 100) {
+            ref.lvlup();
+        }
+        ref.p_mana = 100;
+
+        // Troisième combat
+        std::cout << "\nVous etes face au boss de la foret.... c'est un Sihamus faites attention !\n";
+        if (lancerCombat(ref, mechant3) == 0) {
+            std::cout << "Vous avez perdu le combat...\n";
+            std::cout << "Souhaitez-vous relancer une partie ? (o/n) : ";
+            std::cin >> rejouer;
+            if (rejouer != 'o' && rejouer != 'O') {
+                std::cout << "Merci d'avoir joue ! A bientot.\n";
+                return 0; // Sort du programme
+            }
+            continue;
+        }
+        std::cout << "\n\nFelicitation vous avez reussis a dominer la foret !!!!!\n";
+
+        // Afficher les infos du personnage après tous les combats
+        ref.aff_info();
+
+        // Demander si le joueur souhaite rejouer après une victoire complète
         std::cout << "Souhaitez-vous relancer une partie ? (o/n) : ";
         std::cin >> rejouer;
 
     } while (rejouer == 'o' || rejouer == 'O');
 
-    std::cout << "Merci d'avoir joue ! A bientot.\n";
+  
     return 0;
 }
