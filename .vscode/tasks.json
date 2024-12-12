@@ -13,7 +13,9 @@
           "class_guerrier.cpp",
           "class_archer.cpp",
           "class_mage.cpp",
-          "class_ennemi.cpp"
+          "class_ennemi.cpp",
+          "Potion.cpp",
+          "Objet.cpp"
         ],
         "group": {
           "kind": "build",

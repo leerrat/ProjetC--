@@ -23,8 +23,8 @@ public:
     //~class_personnage();
     virtual void capacite_spec(personnage &ennemi);
     void aff_info();
-    void recevoir_attaque(int degat,int force);
-    void attaque(personnage &ennemi);
+    void recevoir_attaque(int degat,int stat);
+    virtual void attaque(personnage &ennemi) = 0;
     void utiliser_objet();
     void defendre();
     void lvlup();

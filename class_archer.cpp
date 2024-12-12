@@ -16,7 +16,20 @@ archer::archer(std::string nom, int pv, int mana, int force, int dex, int esprit
 }
 
 void archer::capacite_spec(personnage &ennemi) {
-    std::cout << p_nom <<" lance une attaque speciale \n"<<std::endl;
-    ennemi.recevoir_attaque(30,1);
-    p_mana-=30;
+    std::cout << p_nom <<" lance une une fleche en pleine tete et inflige de nombreux degat !\n"<<std::endl;
+    if (p_mana>=30)
+    {
+        ennemi.recevoir_attaque(30,p_dex);
+        p_mana-=30;
+    }else
+    {
+        cout<<"vous n'avez pas assez de mana"<<endl;
+    }
+}
+
+void archer::attaque(personnage &ennemi) {
+    std::cout << "--------------------------\n" << std::endl;
+    std::cout << p_nom << " décoche une fleche precise !\n" << std::endl;
+    ennemi.recevoir_attaque(10, p_dex); 
+    p_mana += 15; 
 }

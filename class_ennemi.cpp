@@ -3,8 +3,8 @@
 #include "class_personnage.hpp"
 
 void ennemi::capacite_spec(personnage &ennemi){
-    std::cout << p_nom <<" lance une attaque speciale \n"<<std::endl;
-    ennemi.recevoir_attaque(20,1);
+    std::cout << p_nom <<" vous mord de toute ses forces \n"<<std::endl;
+    ennemi.recevoir_attaque(20,p_force);
 }
 
 void ennemi::drop_exp(personnage& joueur){
@@ -22,4 +22,10 @@ ennemi::ennemi(std::string nom, int pv, int mana, int force, int dex, int esprit
     ennemi::p_exp = exp;
     ennemi::p_lvl = lvl;
     ennemi::en_defense=false;
+}
+void ennemi::attaque(personnage &ennemi) {
+    //std::cout << "--------------------------\n" << std::endl;
+    std::cout << p_nom << " montre ses crocs et vous attaque !\n" << std::endl;
+    ennemi.recevoir_attaque(10, p_force); 
+    p_mana += 20; 
 }

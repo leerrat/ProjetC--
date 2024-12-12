@@ -17,23 +17,21 @@ personnage::personnage(){
 
 }
 
-void personnage::recevoir_attaque(int degat,int force){
+void personnage::recevoir_attaque(int degat,int stat){
+    int degatot=(degat*stat);
     if (en_defense==true){
-        personnage::p_pv -= (degat*force)/2;
+        personnage::p_pv -= degatot/2;
         en_defense=false;
-        std::cout <<"l'ennemie s'est mis en defense donc prend la moitie des degats : "<<(degat*force)/2 <<std::endl;
+        std::cout <<"l'ennemie s'est mis en defense donc prend la moitie des degats : "<<degatot/2 <<std::endl;
     }else
     {
-        personnage::p_pv -= degat*force;
-        std::cout <<"l'ennemie prend des degats : "<<(degat)<<std::endl;
+        personnage::p_pv -= degat*stat;
+        std::cout <<"l'ennemie prend des degats : "<<(degatot)<<std::endl;
     }
 }
 
 void personnage::attaque(personnage &ennemi){
-    std::cout << "--------------------------\n"<<std::endl;
-    std::cout << p_nom << " lance une attaque\n"<<std::endl;
-    ennemi.recevoir_attaque(10,personnage::p_force);
-    personnage::p_mana+=10;
+    
 }
 
 void personnage::aff_info(){
@@ -60,7 +58,7 @@ void personnage::lvlup(){
     p_exp = 0;
     p_lvl += 1;
     int choixlvl;
-    std::cout << "Felicitation vous etes montez niveau \n"<< personnage::p_lvl<< std::endl;
+    std::cout << "\nFelicitation vous etes montez niveau \n"<< personnage::p_lvl<< std::endl;
     std::cout<< "Choissisez la statistique a montez\n1.Pour montez les points de vie\n2.Pour montez la force\n3.Pour montez la dexterite\n4.Pour montez l'esprit" <<std::endl;
     std::cin >> choixlvl;
     switch( choixlvl ) {

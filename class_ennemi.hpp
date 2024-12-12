@@ -13,6 +13,7 @@ class ennemi : public personnage
         void capacite_spec(personnage &ennemi);
         void drop_exp(personnage& joueur);
         void drop_item();
+        void attaque(personnage &ennemi);
 };
 
 #endif
