@@ -17,7 +17,7 @@ personnage* LancerJeu(){
     cout<<"Tu vas pouvoir creer un personnage et t'aventurer dans des contrees magiques et fantastiques\n" ;
     cout<<"Tout d'abord choissisez un nom pour votre personnage : " ;
     cin>>nomPerso;
-    cout<<"\nVoici les classes disponibles:\nArcher (Redoutable avec son arc et son agilite),\nGuerrier (Professionelle de l'epee et des combats rapprocher),\nMage (Erudit des arts mystiques et envoyant de puissant sort\n";
+    cout<<"\nVoici les classes disponibles:\nArcher (Redoutable avec son arc et son agilite),\nGuerrier (Professionel de l'epee et des combats rapprocher),\nMage (Erudit des arts mystiques et envoyant de puissant sort)\n";
 
     personnage* P1 = nullptr;
     
@@ -135,7 +135,7 @@ int main()
 
         // Référence vers le personnage pour lancer le combat
         personnage& ref = *perso;
-        cout << "\nVous tombez nez a nez face un horrible monstre dans la foret !.\n";
+        cout << "\nVous tombez nez a nez face a un horrible monstre dans la foret !.\n";
         cout << "Preparez vous a combattre !!!.\n";
         // Lancer le combat
         if (lancerCombat(ref, mechant1) == 0) {
